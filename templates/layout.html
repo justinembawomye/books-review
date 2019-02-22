@@ -1,78 +1,84 @@
 <!DOCTYPE html>
 <html lang="pl">
-
 <head>
     <meta charset="UTF-8">
     <title>Books</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-
 <body>
-    <nav class="navbar">
-        <div class="navbar-brand">
+<nav class="nav-wrapper">
+    <div class="navbar-brand">
+        
+        <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
 
+    <div id="navbarExampleTransparentExample" class="navbar-menu">
+        <div class="navbar-start">
+            <a class="navbar-item" href="{{ url_for('home') }}">
+                Home
+            </a>
 
-            <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
         </div>
 
-        <div id="navbarExampleTransparentExample" class="navbar-menu">
-            <div class="navbar-start">
-                <a class="navbar-item" href="{{ url_for('home') }}">
-                    Home
-                </a>
-
-            </div>
-
-            <div class="navbar-end">
-                {% if username %}
+        <div class="navbar-end">
+            {% if username %}
                 <div class="navbar-item">
                     {{ username }}
                 </div>
-                {% endif %}
-                <div class="navbar-item">
-                    <div class="field is-grouped">
-                        <!-- if session.get('logged_in') 
+            {% endif %}
+            <div class="navbar-item">
+                <div class="field is-grouped">
+                    {% if session.get('logged_in') %}
                         <p class="control">
-                            <a class="button is-primary" href="url_for('logout') ">
+                            <a class="button is-primary" href="{{ url_for('logout') }}">
                                 <span>Logout</span>
                             </a>
                         </p>
-                        else -->
+                    {% else %}
+
+                     <p class = "control">
+                         <a class = "button is-primary " href="{{ url_for('login') }}">
+                             <span>Login</span>
+                         </a>
+                     </p>
                         
                         <p class="control">
                             <a class="button is-primary" href="{{ url_for('register') }}">
                                 <span>Register</span>
                             </a>
                         </p>
-                        
-                    </div>
+                    {% endif %}
                 </div>
-
             </div>
+
         </div>
-    </nav>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <div class="notification">
-        <button class="delete"></button>
-        {% for message in messages %}
-        <p>{{ message }}</p>
-        {% endfor %}
     </div>
+</nav>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="notification">
+            <button class="delete"></button>
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
     {% endif %}
-    {% endwith %}
+{% endwith %}
 
-    {% block body %}
-    {% endblock %}
+{% block body %}
+{% endblock %}
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+            
+
+        
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
-
 </html>
