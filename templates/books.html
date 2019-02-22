@@ -1,17 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Books</title>
-</head>
-<body>
-    <form method="POST" action="/result">
-        <input type="number" name="isbn" placeholder="isbn">
-        <input type="text" name="title" placeholder="title">
-        <input type="text" name="author" placeholder="author">
-        <input type="submit" value="Submit">
-      </form>
-</body>
-</html>
+
+
+{% extends "layout.html" %}
+
+{% block heading %}books {% endblock %}
+
+{% block body %}
+
+<h1>Book Search</h1>
+
+<form action="{{ url_for('sbooks') }}" method="post">
+
+    <div class="form-group">
+        <input class="form-control" name="isbn" placeholder="isbn" type="text">
+    </div>
+
+    <div class="form-group">
+        <input class="form-control" name="title" placeholder="title" type="text">
+    </div>
+
+    <div class="form-group">
+        <input class="form-control" name="author" placeholder="author" type="text" >
+    </div>
+
+    <div class="form-group">
+        <input class="form-control" name="year" placeholder="year" type="year">
+    </div>
+
+    
+
+
+    <div class="form-group">
+        <button class="btn btn-primary">Search</button>
+    </div>
+
+</form>
+
+
+
+{% endblock %}
