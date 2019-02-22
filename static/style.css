@@ -17,7 +17,9 @@ body {
     width: 550px;
     height: auto;
     box-sizing: border-box;
-    position: relative;
+    /* position: relative; */
+    background-image: url('images/lady.jpg');
+    justify-content: center;
   }
   .col.s6 > .btn {
      width: 100%;
@@ -51,3 +53,4 @@ body {
     right: -20px;
   }
   
+
