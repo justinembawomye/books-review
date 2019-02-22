@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <nav class="nav-wrapper">
+        <div class="navbar-brand">
+
+            <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        
+
+            </div>
+
+            <div class="navbar-end">
+                {% if username %}
+                <div class="navbar-item">
+                    {{ username }}
+                </div>
+
+
+                </p>
+                <p class="control">
+                    <a class="button is-primary" href="{{ url_for('register') }}">
+                        <span>Register</span>
+                    </a>
+                </p>
+                {% endif %}
+            </div>
+        </div>
+
+        </div>
+        </div>
+    </nav>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="notification">
+        <button class="delete"></button>
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    {% block body %}
+    {% endblock %}
+            
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script src="js/main.js"></script>
+
+
+</body>
+
+</html>
