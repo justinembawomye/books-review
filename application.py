@@ -2,13 +2,13 @@ import os
 
 
 
-
-
-from flask import Flask, flash, request, session, redirect, render_template, url_for
+from flask import Flask, session, render_template, url_for, flash, redirect
 from flask_session import Session
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, scoped_session
-from passlib.hash import pbkdf2_sha256
+from sqlalchemy.orm import scoped_session, sessionmaker
+from forms import RegistrationForm, LoginForm
+from flask_bcrypt import Bcrypt
+
 
 app = Flask(__name__)
 
@@ -17,8 +17,18 @@ db = scoped_session(sessionmaker(engine))
 
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
+app.config["SECRET_KEY"]= os.environ.get('SECRET_KEY')
+bcrypt = Bcrypt(app)
+
 Session(app)
 
+
+
+
+# Set up database
+engine = create_engine(os.getenv("DATABASE_URL"))
+db = scoped_session(sessionmaker(bind=engine))
+>>>>>>> ad1414d9cf870944f64073d83e6d8cce9dc90cce
 
 @app.route('/')
 def home():
