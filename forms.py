@@ -20,3 +20,10 @@ class LoginForm(FlaskForm):
     remember = BooleanField("Remember me")
     submit = SubmitField("Login")
 
+class SearchForm(FlaskForm):
+    isbn = StringField('isbn_number', validators=[DataRequired()])
+    title = StringField('title', validators=[DataRequired()])
+    author = StringField('author', validators=[DataRequired()])
+    submit = SubmitField('Search')
+    
+
