@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+        <nav class="top-bar" data-topbar role="navigation">
+            <ul class="title-area">
+            <li class="name">
+                <h1><a href="#">bookFinder</a></h1>
+            </li>
+            <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+            <li class="toggle-topbar menu-icon active><a href="/dashboard"><span>Home</span></a></li>
+            </ul>
+        
+            <section class="top-bar-section">
+            <!-- Right Nav Section -->
+            <ul class="right">
+                <li><a href="#">Books</a></li>
+                <li class=""><a href="/search">Book Search</a></li>
+                <li class="has-dropdown">
+                    <a href="#">Logout</a>
+                </li>
+            </ul>
+        
+            <!-- Left Nav Section -->
+            <ul class="left">
+                <li><a href="/bookreviews">Book Reviews</a></li>
+            </ul>
+            </section>
+        </nav>
+        <div class="container">
+            <div class="card text-center col s12" id="wrapper">
+                <div class="card-header pt-20 col s4">Dashboard</div>
+                <div class="card-body">
+                   <form action="{{ url_for('search') }}" method="post" style="margin-left:20px;max-width:250px;">
+                        <input class="form-control" name="searchbox" type="text" placeholder="Title, ISBN, Author ..."><br>
+                        <button type="submit" class="btn btn-primary" style="width:100%;"> Search </button>
+                    </form>
+                </div>
+                <hr class="divider">
+                <div class="card-header col s5">Recent Books</div>
+                <div class="card-body">
+                    <div class="large"> Title </div>
+                    <p class="card-text"></p>
+                    <div class="large"> Author</div>
+                    <p class="card-text"></p>
+                    <div class="large"> Year </div>
+                    <p class="card-text"></p>
+                    <div class="large"> ISBN </div>
+                    <p class="card-text"></p>
+                    <div class="large"> Goodread Rating </div>
+                    <p class="card-text"> </p>
+                </div>
+            </div>
+        </div>
+                
+
+{% endblock body %}

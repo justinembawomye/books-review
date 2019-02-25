@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <main id="main-doc">
+        <header>
+            <nav id="navbar">
+                <img src="{{ url_for('static', filename='images/bookfinder.JPG') }}">      
+            </nav>
+        </header>
+        <section class="main-section" id="welcome">
+            <p>Welcome to bookFinder, Your Online One Book Stop</p>
+            <p>Login to find your favorite book</p>
+            <div id="prompt">
+                <a href="/login" class=" btn btn-small">Login</a> <small>Don't have Account?</small>
+                <a href="/register" class="btn btn-small">Register</a>
+            </div>                    
+        </section>
+    </main>
+  
+{% endblock body %}
