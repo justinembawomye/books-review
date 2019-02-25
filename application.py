@@ -5,7 +5,7 @@ from flask import Flask, session, render_template, url_for, flash, redirect
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
-from forms import RegistrationForm, LoginForm
+from forms import RegistrationForm, LoginForm, SearchForm
 from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
@@ -59,7 +59,21 @@ def login():
 		else:
 			flash("Invalid email or password. Try again", 'danger')			
 	return render_template('login.html', form=form)
-							 
+
+
+
+@app.route('/search', methods=['POST', 'GET'])
+def search():
+	form = SearchForm()
+	if form.validate_on_submit():
+		results = db.execute("SELECT * FROM books WHERE author LIKE  '%a%' ORDER BY id OFFSET 10 ROWS FETCH NEXT 10 ROWS ONLY ")
+		print(results)
+		return render_template('results.html', results=results)
+		# return redirect(url_for('home'))
+	return render_template('search.html', form=form)
+
+	
+
 
 
 
