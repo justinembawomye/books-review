@@ -9,18 +9,18 @@
             <legend class="border-bottom mb-4">Search Books</legend>
            
             <div class="form-group">
-                {{form.isbn.label(class="form-control-label")}}
+                {{form.isbns.label(class="form-control-label")}}
 
-                {% if form.isbn.errors %}
-                {{form.isbn(class="form-control form-control-lg is-invalid")}}
+                {% if form.isbns.errors %}
+                {{form.isbn(sclass="form-control form-control-lg is-invalid")}}
 
                 <div class="invalid-feedback">
-                    {% for error in form.isbn.errors %}
+                    {% for error in form.isbns.errors %}
                     <span>{{error}}</span>
                     {% endfor %}
                 </div>
                 {% else %}
-                {{form.isbn(class="form-control form-control-lg")}}
+                {{form.isbns(class="form-control form-control-lg")}}
                 {% endif %}
 
             </div>

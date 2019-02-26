@@ -21,7 +21,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField("Login")
 
 class SearchForm(FlaskForm):
-    isbn = StringField('isbn_number', validators=[DataRequired()])
+    isbns = StringField('isbns_number', validators=[DataRequired()])
     title = StringField('title', validators=[DataRequired()])
     author = StringField('author', validators=[DataRequired()])
     submit = SubmitField('Search')
