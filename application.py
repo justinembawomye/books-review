@@ -1,5 +1,7 @@
-import os
+import os,requests, json
 import psycopg2
+
+
 
 from flask import Flask, session, render_template, url_for, flash, redirect
 from flask_session import Session
@@ -7,6 +9,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from forms import RegistrationForm, LoginForm, SearchForm
 from flask_bcrypt import Bcrypt
+
 
 app = Flask(__name__)
 
@@ -18,6 +21,10 @@ if not os.getenv("DATABASE_URL"):
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 app.config["SECRET_KEY"]= os.environ.get('SECRET_KEY')
+app.config["API_KEY"] = os.environ.get('API_KEY')
+
+
+
 bcrypt = Bcrypt(app)
 
 Session(app)
@@ -72,7 +79,17 @@ def search():
 		# return redirect(url_for('home'))
 	return render_template('search.html', form=form)
 
-	
+
+@app.route('/query', methods=['POST', 'GET'])
+def query():
+	form = SearchForm()
+	if form.validate_on_submit():
+		params = {
+			'api_key':'{API_KEY}',}
+		r = requests.get('https://www.goodreads.com/book/review_counts.json',{'params':params, 'isbns':form.isbns.data})
+		return render_template('results.html', results=json.loads(r.text)['books'])
+	return render_template('search.html', form=form)	
+
 
 
 
