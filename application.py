@@ -88,18 +88,18 @@ def search():
     return render_template('search.html', form=form)
     
 
-#  BOOKPAGE   	
-
+#  BOOKPAGE 
 @app.route('/books/<isbn>')
 def book(isbn):
 
     book = db.execute('SELECT * FROM books WHERE isbn=:isbn',
                       {'isbn': isbn}).fetchone()
 
+    if book is None:
+        return render_template('error.html', message='This book is not available', navbar=True)
 
-    url = "https://www.goodreads.com/book/isbn.json", params={"key": "VbXdV8MTTSGJzdRm4z965Q", "isbns": isbn})
+    url = "https://www.goodreads.com/book/isbn/{}?key=VbXdV8MTTSGJzdRm4z965Q".format(isbn)
     res = requests.get(url)
-    data = response.json
     tree = ElementTree.fromstring(res.content)
 
     try:
@@ -109,11 +109,15 @@ def book(isbn):
         avg_score = tree[1][18].text
         link = tree[1][24].text
 
+    except IndexError:
+        return render_template('book.html', book=book, link=None)
 
     description_markup = Markup(description)
 
     return render_template('book.html', book=book, link=link, description=description_markup,
                            image_url=image_url, review_count=review_count, avg_score=avg_score)
+
+
 
 
 # BOOK API
@@ -127,7 +131,7 @@ def book_api(isbn):
         api = jsonify({'error': 'This book is not available'})
         return api
 
-    url = "https://www.goodreads.com/book/isbn.json", params={"key": "VbXdV8MTTSGJzdRm4z965Q", "isbns": isbn})
+    url = "https://www.goodreads.com/book/isbn/{}?key=VbXdV8MTTSGJzdRm4z965Q".format(isbn)
     res = requests.get(url)
     tree = ElementTree.fromstring(res.content)
 
