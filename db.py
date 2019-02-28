@@ -1,7 +1,11 @@
 import os, psycopg2, csv
 
+
 DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(host="ec2-107-20-167-11.compute-1.amazonaws.com",database="d73a0td2ecipbc", user="gzxeabmkdscsaw", password="2fc456489aedf96b202f17cdd0d33ecaf86ed5e31736bdcfac35bac7846ad0d5")
+
+
+
 
 csvfile = open("books.csv") 
 reader = csv.reader(csvfile,delimiter=',')

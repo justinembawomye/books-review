@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block content%}
+    {{ book.title }}
+
+    <div class="container">
+
+    <h2>{{ book.title }} ({{ book.year }}) by {{ book.author }}</div></h2>
+
+    <br>
+
+    {% if link %}
+        <div class="container">
+              <div class="row">
+              <div class="col-sm-4">
+                  <div class="row">
+                      <div class="col-sm-4">
+                          <a href="{{ link }}"><img src="{{ image_url }}" alt="Book Cover"></a>
+                      </div>
+                      <div class="col-sm">
+                          <p><strong>Review Count   :</strong> {{ review_count }}</p>
+                          <p><strong>Average Rating :</strong> {{ avg_score }}</p>
+                      </div>
+                  </div>
+                </div>
+                  <div class="col-sm-8">
+                    <strong>Description:</strong>
+                    <br>
+                    <br>
+                    <p>{{ description }}</p>
+                </div>
+          </div> 
+
+          <!-- goodreads widget for viewing books on gooodreads -->
+          <div class="row">
+            <div id="gr_custom_widget_1551332230">
+                <div class="gr_custom_container_1551332230">
+            <h2 class="gr_custom_header_1551332230">
+            <a style="text-decoration: none;" rel="nofollow" href="https://www.goodreads.com/review/list/93800971-walimuchan?shelf=read&amp;utm_medium=api&amp;utm_source=custom_widget">find a book here</a>
+            </h2>
+            <div class="gr_custom_each_container_1551332230">
+                <div class="gr_custom_book_container_1551332230">
+                  <a title="Sugar and Ice (Rinkside in the Rockies, #1)" rel="nofollow" href="https://www.goodreads.com/review/show/2722794943?utm_medium=api&amp;utm_source=custom_widget"><img alt="Sugar and Ice" border="0" src="https://images.gr-assets.com/books/1479849363s/33095931.jpg" /></a>
+                </div>
+                <div class="gr_custom_rating_1551332230">
+                  <span class=" staticStars" title="it was amazing"><img alt="it was amazing" src="https://www.goodreads.com/images/layout/gr_red_star_active.png" /><img alt="" src="https://www.goodreads.com/images/layout/gr_red_star_active.png" /><img alt="" src="https://www.goodreads.com/images/layout/gr_red_star_active.png" /><img alt="" src="https://www.goodreads.com/images/layout/gr_red_star_active.png" /><img alt="" src="https://www.goodreads.com/images/layout/gr_red_star_active.png" /></span>
+                </div>
+                <div class="gr_custom_title_1551332230">
+                  <a rel="nofollow" href="https://www.goodreads.com/review/show/2722794943?utm_medium=api&amp;utm_source=custom_widget">Sugar and Ice</a>
+                </div>
+                <div class="gr_custom_author_1551332230">
+                  by <a rel="nofollow" href="https://www.goodreads.com/author/show/7265661.Aven_Ellis">Aven Ellis</a>
+                </div>
+          </div>
+            
+       
+      
+        
+            
+               
+                      
+                          
+                        
+     <!-- </div>
+    {% else %}
+        <h3>No Info on book is Available</h3>
+    {% endif %}
+    </div> -->
+
+{% endblock %}
