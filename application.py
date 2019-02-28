@@ -166,4 +166,3 @@ def book_api(isbn):
     })
 
     return api
-
