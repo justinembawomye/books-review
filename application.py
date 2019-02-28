@@ -1,7 +1,7 @@
 import os
 import psycopg2
 
-from flask import Flask, session, render_template, url_for, flash, redirect, request, Markup, jsonify
+from flask import Flask, session, render_template, url_for, flash, redirect, Markup, jsonify
 from flask_session import Session
 from sqlalchemy import create_engine, exc
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -10,7 +10,7 @@ from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
 import requests
-
+import urllib.request
 
 from xml.etree import ElementTree
 
@@ -96,7 +96,7 @@ def book(isbn):
                       {'isbn': isbn}).fetchone()
 
     if book is None:
-        return render_template('error.html', message='This book is not available', navbar=True)
+        return render_template('error.html', message='This book is not available')
 
     url = "https://www.goodreads.com/book/isbn/{}?key=VbXdV8MTTSGJzdRm4z965Q".format(isbn)
     res = requests.get(url)
@@ -119,54 +119,3 @@ def book(isbn):
 
 
 
-
-# BOOK API
-@app.route('/api/<isbn>')
-def book_api(isbn):
-
-    book = db.execute('SELECT * FROM books WHERE isbn=:isbn',
-                      {'isbn': isbn}).fetchone()
-
-    if book is None:
-        api = jsonify({'error': 'This book is not available'})
-        return api
-
-    url = "https://www.goodreads.com/book/isbn/{}?key=VbXdV8MTTSGJzdRm4z965Q".format(isbn)
-    res = requests.get(url)
-    tree = ElementTree.fromstring(res.content)
-
-    try:
-        description = tree[1][16].text
-        image_url = tree[1][8].text
-        review_count = tree[1][17][3].text
-        avg_score = tree[1][18].text
-        link = tree[1][24].text
-
-    except IndexError:
-        api = jsonify({
-            'title': book.title,
-            'author': book.author,
-            'year': book.year,
-            'isbn': book.isbn,
-            'link': '',
-            'description': '',
-            'book_cover': '',
-            'review_count': '',
-            'average_rating': ''
-        })
-
-        return api
-
-    api = jsonify({
-        'title': book.title,
-        'author': book.author,
-        'year': book.year,
-        'isbn': book.isbn,
-        'link': link,
-        'description': description,
-        'book_cover': image_url,
-        'review_count': review_count,
-        'average_rating': avg_score
-    })
-
-    return api
